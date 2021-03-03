@@ -1,1 +1,1 @@
-hugo-builder: python3 main.py
+pubsub: python3 main.py
