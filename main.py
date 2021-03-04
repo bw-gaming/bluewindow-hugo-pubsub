@@ -33,8 +33,9 @@ def receive_messages_with_custom_attributes(project_id, subscription_id, timeout
 
 if __name__ == "__main__":
     project_id = os.environ.get('PUBSUB_PROJECT')
-    subscription_id = os.environ.get('PUBSUB_SUBSCRIPTION')
-    topic_name = os.environ.get('PUBSUB_TOPIC')
+    subscription_id = os.environ.get('PUBSUB_PUBLISH_SUBSCRIPTION')
+    publish_topic_name = os.environ.get('PUBSUB_PUBLISH_TOPIC')
+    notify_topic_name = os.environ.get('PUBSUB_NOTIFY_TOPIC')
     print(f"{os.environ}")
-    print(f"project_id: {project_id} \nsubscription_id: {subscription_id}\ntopic_name: {topic_name}")
+    print(f"project_id: {project_id} \nsubscription_id: {subscription_id}\publish_topic_name: {publish_topic_name}")
     receive_messages_with_custom_attributes(project_id, subscription_id, timeout=None)

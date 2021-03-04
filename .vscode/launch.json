@@ -9,7 +9,14 @@
             "type": "python",
             "request": "launch",
             "program": "${file}",
-            "console": "integratedTerminal"
+            "console": "integratedTerminal",
+            "env": {
+                "GOOGLE_APPLICATION_CREDENTIALS": "./gcp_credentials.json",
+                "PUBSUB_PROJECT": "nextwork-staging",
+                "PUBSUB_PUBLISH_SUBSCRIPTION": "publish_website_subscription",
+                "PUBSUB_PUBLISH_TOPIC": "publish-website-trigger",
+                "PUBSUB_NOTIFY_TOPIC": "publish-website-notify"
+            }
         }
     ]
 }
