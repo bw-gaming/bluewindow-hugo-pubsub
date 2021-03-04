@@ -32,10 +32,13 @@ def receive_messages_with_custom_attributes(project_id, subscription_id, timeout
     # [END pubsub_subscriber_async_pull_custom_attributes]
 
 if __name__ == "__main__":
+    
     project_id = os.environ.get('PUBSUB_PROJECT')
     subscription_id = os.environ.get('PUBSUB_PUBLISH_SUBSCRIPTION')
     publish_topic_name = os.environ.get('PUBSUB_PUBLISH_TOPIC')
     notify_topic_name = os.environ.get('PUBSUB_NOTIFY_TOPIC')
-    print(f"{os.environ}")
-    print(f"project_id: {project_id} \nsubscription_id: {subscription_id}\publish_topic_name: {publish_topic_name}")
+    bucket_in = os.environ.get('BUCKET_INPUT')
+    bucket_out = os.environ.get('BUCKET_OUTPUT')
+
+    print(f"project_id: {project_id} \nsubscription_id: {subscription_id}\npublish_topic_name: {publish_topic_name}\nBucket in : {bucket_in}\nBucket out : {bucket_out}")
     receive_messages_with_custom_attributes(project_id, subscription_id, timeout=None)

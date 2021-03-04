@@ -13,9 +13,11 @@
             "env": {
                 "GOOGLE_APPLICATION_CREDENTIALS": "./gcp_credentials.json",
                 "PUBSUB_PROJECT": "nextwork-staging",
-                "PUBSUB_PUBLISH_SUBSCRIPTION": "publish_website_subscription",
+                "PUBSUB_PUBLISH_SUBSCRIPTION": "publish_website_trigger_subscription",
                 "PUBSUB_PUBLISH_TOPIC": "publish-website-trigger",
-                "PUBSUB_NOTIFY_TOPIC": "publish-website-notify"
+                "PUBSUB_NOTIFY_TOPIC": "publish-website-notify",
+                "BUCKET_INPUT": "gs://dev-nextwork-staging-websites-input",
+                "BUCKET_OUTPUT": "gs://dev-nextwork-staging-websites-output"
             }
         }
     ]
