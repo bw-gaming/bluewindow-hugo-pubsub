@@ -37,4 +37,4 @@ if __name__ == "__main__":
     topic_name = os.environ.get('PUBSUB_TOPIC')
     print(f"{os.environ}")
     print(f"project_id: {project_id} \nsubscription_id: {subscription_id}\ntopic_name: {topic_name}")
-    receive_messages_with_custom_attributes(project_id, subscription_id, timeout=None):
+    receive_messages_with_custom_attributes(project_id, subscription_id, timeout=None)
