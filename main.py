@@ -43,6 +43,7 @@ class HugoRunner:
 
         output = subprocess.run(['/bin/bash', self.publish_script, environment, website, self.bucket_in, self.bucket_out, buildId, theme],
                                 capture_output=True,
+                                shell=True,
                                 text=True
                                 )
         return {
