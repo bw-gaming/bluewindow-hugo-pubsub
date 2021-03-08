@@ -40,7 +40,7 @@ class HugoRunner:
         website = payload['website']
         theme = payload['theme']
         buildId = payload['buildId']
-        output = subprocess.run(["bash", self.publish_script, environment, website,self.bucket_in, self.bucket_out, buildId, theme], capture_output=True, text=True)
+        output = subprocess.run([self.publish_script, environment, website,self.bucket_in, self.bucket_out, buildId, theme], capture_output=True, text=True, shell=True)
         return {'returncode': output.returncode, 'stderr': output.stderr, 'stdout': output.stdout, 'args': output.args}
 
     def callback(self, message):
