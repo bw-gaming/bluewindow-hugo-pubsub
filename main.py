@@ -21,7 +21,8 @@ class HugoRunner:
         self.timeout = timeout
 
         self.publisher = pubsub_v1.PublisherClient()
-        self.notification_topic_path = self.publisher.topic_path(project_id, notification_topic)
+        self.notification_topic_path = self.publisher.topic_path(
+            project_id, notification_topic)
 
     def notify(self, payload, update):
         logging.info(f"Notify :{payload}, {update}.")
@@ -40,7 +41,11 @@ class HugoRunner:
         website = payload['website']
         theme = payload['theme']
         buildId = payload['buildId']
-        output = subprocess.run([self.publish_script, environment, website,self.bucket_in, self.bucket_out, buildId, theme], capture_output=True, text=True, shell=True)
+        output = subprocess.run(['/bin/bash', self.publish_script, environment, website, self.bucket_in, self.bucket_out, buildId, theme],
+                                capture_output=True,
+                                shell=True,
+                                text=True
+                                )
         return {'returncode': output.returncode, 'stderr': output.stderr, 'stdout': output.stdout, 'args': output.args}
 
     def callback(self, message):
@@ -63,9 +68,11 @@ class HugoRunner:
     def receive_publish_request(self):
         subscriber = pubsub_v1.SubscriberClient()
 
-        subscription_path = subscriber.subscription_path(self.project_id, self.subscription_id)
+        subscription_path = subscriber.subscription_path(
+            self.project_id, self.subscription_id)
 
-        streaming_pull_future = subscriber.subscribe(subscription_path, callback=self.callback)
+        streaming_pull_future = subscriber.subscribe(
+            subscription_path, callback=self.callback)
 
         logging.info(f"Listening for messages on {subscription_path}..\n")
         # Wrap subscriber in a 'with' block to automatically call close() when done.
