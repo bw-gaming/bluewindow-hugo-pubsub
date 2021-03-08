@@ -45,7 +45,8 @@ class HugoRunner:
                                 capture_output=True,
                                 shell=True,
                                 text=True,
-                                executable='/bin/bash'
+                                executable='/bin/bash',
+                                env={"PATH": "/usr/local/bin:/usr/bin:/bin:/usr/local/games:/usr/games"}
                                 )
         return {
             'returncode': output.returncode,
