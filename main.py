@@ -56,7 +56,7 @@ class HugoRunner:
 
         self.notify(payload, {
             'output': result,
-            'status': 'succeded' if result.returncode == 0 else 'failed',
+            'status': 'succeded' if result['returncode'] == 0 else 'failed',
             'endDate': timestamp
         })
 
