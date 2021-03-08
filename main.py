@@ -41,10 +41,11 @@ class HugoRunner:
         website = payload['website']
         theme = payload['theme']
 
-        output = subprocess.run(['/bin/bash', self.publish_script, environment, website, self.bucket_in, self.bucket_out, buildId, theme],
+        output = subprocess.run(f'{self.publish_script} {environment} {website} {self.bucket_in} {self.bucket_out} {buildId} {theme}',
                                 capture_output=True,
                                 shell=True,
-                                text=True
+                                text=True,
+                                executable='/bin/bash'
                                 )
         return {
             'returncode': output.returncode,
