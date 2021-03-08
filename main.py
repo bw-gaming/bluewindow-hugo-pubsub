@@ -40,30 +40,37 @@ class HugoRunner:
         environment = payload['environment']
         website = payload['website']
         theme = payload['theme']
-        buildId = payload['buildId']
+
         output = subprocess.run(['/bin/bash', self.publish_script, environment, website, self.bucket_in, self.bucket_out, buildId, theme],
                                 capture_output=True,
-                                shell=True,
                                 text=True
                                 )
-        return {'returncode': output.returncode, 'stderr': output.stderr, 'stdout': output.stdout, 'args': output.args}
+        return {
+            'returncode': output.returncode,
+            'stderr': output.stderr,
+            'stdout': output.stdout,
+            'args': output.args
+        }
 
     def callback(self, message):
-        logging.info(f"Received {message.data}.")
+        try:
+            logging.info(f"Received {message.data}.")
 
-        payload = json.loads(message.data)
-        message.ack()
+            message.ack()
+            payload = json.loads(message.data)
 
-        self.notify(payload, {'status': 'running'})
-        result = self.run_build(payload)
+            self.notify(payload, {'status': 'running'})
+            result = self.run_build(payload)
 
-        timestamp = int(datetime.datetime.now().timestamp() * 1000)
+            timestamp = int(datetime.datetime.now().timestamp() * 1000)
 
-        self.notify(payload, {
-            'output': result,
-            'status': 'succeded' if result['returncode'] == 0 else 'failed',
-            'endDate': timestamp
-        })
+            self.notify(payload, {
+                'output': result,
+                'status': 'succeded' if result['returncode'] == 0 else 'failed',
+                'endDate': timestamp
+            })
+        except Exception as ex:
+            logging.error(ex)
 
     def receive_publish_request(self):
         subscriber = pubsub_v1.SubscriberClient()
